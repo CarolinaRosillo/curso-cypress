@@ -1,15 +1,13 @@
 const { defineConfig } = require("cypress");
-const { configureAllureAdapterPlugins } = require('@mmisty/cypress-allure-adapter/plugins');
+const allureWriter = require('@shelex/cypress-allure-plugin/writer');
 
 module.exports = defineConfig({
-  allowCypressEnv: false,
 
+  retries:1,
   e2e: {
     setupNodeEvents(on, config) {
-      // implement node event listeners here
-      configureAllureAdapterPlugins(on,
-config);
-return config;
+      allureWriter(on, config);
+      return config;
     },
   },
 });
