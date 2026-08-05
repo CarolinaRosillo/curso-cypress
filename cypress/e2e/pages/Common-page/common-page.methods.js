@@ -3,7 +3,8 @@ import { CommonPageElements } from "./common-page.elements";
 
 export class CommonPageMethods{
     static navigateToDemoBlaze(){
-        Cy.visit(CommonPageData.Url);
+        cy.clearCookies();
+        cy.visit(CommonPageData.Url);
     }
 
     static clickOnHomeOption(){
@@ -32,5 +33,11 @@ export class CommonPageMethods{
 
     static clickOnSingupOption(){
         CommonPageElements.topMenu.Signup.click();
+    }
+
+    static verifyAlert(expectedMessage){
+        cy.on('window:alert', (str) => {
+            expect(str).to.equal(expectedMessage)
+        })
     }
 }
